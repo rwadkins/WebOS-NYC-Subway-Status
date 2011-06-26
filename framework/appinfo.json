@@ -1,8 +1,8 @@
 {
-	"id": "com.phonegap.webos",
+	"id": "com.rwadkins.nycsubwaystatus",
 	"version": "0.0.1",
-	"vendor": "Palm",
+	"vendor": "rwadkins",
 	"type": "web",
 	"main": "index.html",
-	"title": "PhoneGap WebOS"
+	"title": "NYC Subway Status"
 }
