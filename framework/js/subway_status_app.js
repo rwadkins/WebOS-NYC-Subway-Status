@@ -1,5 +1,6 @@
 function SubwayStatus() {
 	var dataUrl = "http://www.mta.info/status/serviceStatus.txt";
+	this.subways = [];
 	this.start = function () {
 		debug.log("app started, awesome 100");
 		//TODO: check if we have a network connection first
@@ -34,7 +35,23 @@ function SubwayStatus() {
 			object.subways.push(line);
 		}
 	};	
-	this.dataChangeHandler = function () {
-		debug.log('Data has been changed')
+	this.dataChangeHandler = function (object) {
+		debug.log('Data has been changed');
+		this.subways = object.subways;
+		var entries = [];
+		jQuery.each(object.subways, function(i, entry) {
+			entries.push(statusListItem(entry));
+		});
+		jQuery("#status_list ul").empty().append(entries);
+	}
+
+	function statusListItem(entry) {
+		var line = jQuery("<span />").addClass("line").html(entry.line);
+		var status = jQuery("<span />").addClass("status").html(entry.status);
+		var entry = jQuery("<div />").addClass("entry").append(line, status);
+		var headline = jQuery("<div />").addClass("headline").addClass("hidden").html(entry.plannedworkheadline);
+		var li = jQuery("<li />").append(entry).append(headline);
+		return li[0];
 	}
 }
+

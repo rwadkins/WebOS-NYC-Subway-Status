@@ -24,7 +24,7 @@
 		this.parser(this.data, this.object);
 		//trigger that the data's changed.
 		if (typeof this.ondata == 'function') {
-			this.ondata();
+			this.ondata(this.object);
 		}
 	};
 	
