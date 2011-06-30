@@ -1,5 +1,19 @@
 function SubwayStatus() {
 	var dataUrl = "http://www.mta.info/status/serviceStatus.txt";
+	var statuses = {
+		"PLANNED WORK": {
+			text: "Planned Work"
+		},
+		"GOOD SERVICE": {
+			text: "Good Service"
+		},
+		"SERVICE CHANGE": {
+			text: "Service Change"
+		},
+		"DELAYS": {
+			text: "Delays"
+		}
+	};
 	this.subways = [];
 	this.start = function () {
 		debug.log("app started, awesome 100");
@@ -46,11 +60,13 @@ function SubwayStatus() {
 	}
 
 	function statusListItem(entry) {
-		var line = jQuery("<span />").addClass("line").html(entry.line);
-		var status = jQuery("<span />").addClass("status").html(entry.status);
+		var line_image = jQuery("<img />").attr("src","images/icons/" + entry.line + ".png");
+		var line = jQuery("<span />").addClass("line").append(line_image);
+		var status = jQuery("<span />").addClass("status").html(statuses[entry.status].text);
 		var entry = jQuery("<div />").addClass("entry").append(line, status);
 		var headline = jQuery("<div />").addClass("headline").addClass("hidden").html(entry.plannedworkheadline);
 		var li = jQuery("<li />").append(entry).append(headline);
+		li.attr("id",entry.line);
 		return li[0];
 	}
 }
