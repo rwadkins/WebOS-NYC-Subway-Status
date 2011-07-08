@@ -14,9 +14,11 @@ function SubwayStatus() {
 			text: "Delays"
 		}
 	};
+	var that = this;
 	this.subways = [];
 	this.start = function () {
 		debug.log("app started, awesome 100");
+		this.myScroll = new iScroll("status_list");
 		//TODO: check if we have a network connection first
 		this.getData();
 	};
@@ -51,13 +53,14 @@ function SubwayStatus() {
 	};	
 	this.dataChangeHandler = function (object) {
 		debug.log('Data has been changed');
-		this.subways = object.subways;
+		that.subways = object.subways;
 		var entries = [];
 		jQuery.each(object.subways, function(i, entry) {
 			entries.push(statusListItem(entry));
 		});
 		jQuery("#status_list ul").empty().append(entries);
-	}
+		that.myScroll.refresh();
+	};
 
 	function statusListItem(entry) {
 		var line_image = jQuery("<img />").attr("src","images/icons/" + entry.line + ".png");
@@ -68,6 +71,6 @@ function SubwayStatus() {
 		var li = jQuery("<li />").append(entry).append(headline);
 		li.attr("id",entry.line);
 		return li[0];
-	}
+	};
 }
 
