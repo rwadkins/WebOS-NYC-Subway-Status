@@ -16,6 +16,7 @@ function SubwayStatus() {
 	};
 	var that = this;
 	this.subways = [];
+	jQuery('.entry').live('click', entryClick);
 	this.start = function () {
 		debug.log("app started, awesome 100");
 		this.myScroll = new iScroll("status_list");
@@ -66,11 +67,22 @@ function SubwayStatus() {
 		var line_image = jQuery("<img />").attr("src","images/icons/" + entry.line + ".png");
 		var line = jQuery("<span />").addClass("line").append(line_image);
 		var status = jQuery("<span />").addClass("status").html(statuses[entry.status].text);
-		var entry = jQuery("<div />").addClass("entry").append(line, status);
-		var headline = jQuery("<div />").addClass("headline").addClass("hidden").html(entry.plannedworkheadline);
-		var li = jQuery("<li />").append(entry).append(headline);
+		var entryDiv = jQuery("<div />").addClass("entry").append(line, status);
+		var headline = jQuery("<div />").addClass("headline").addClass("hidden").html(decodeEntities(entry.plannedworkheadline || entry.text));
+		var li = jQuery("<li />").append(entryDiv);
+		li.append(headline);
 		li.attr("id",entry.line);
 		return li[0];
 	};
+	
+	function entryClick(event) {
+		debug.log('click event fired');
+		jQuery(".headline").slideUp();
+		jQuery(this).parent().find(".headline").slideDown();
+	}
+	
+	function decodeEntities(html) {
+		return jQuery("<div />").html(html).text();
+	}
 }
 

@@ -80,3 +80,6 @@ h1 {
 	background-image: url("images/grey_bg.png");
 	background-repeat: repeat-x;
 }
+.hidden {
+	display: none;
+}
