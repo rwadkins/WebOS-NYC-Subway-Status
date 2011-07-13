@@ -19,7 +19,11 @@ function SubwayStatus() {
 	jQuery('.entry').live('click', entryClick);
 	this.start = function () {
 		debug.log("app started, awesome 100");
-		this.myScroll = new iScroll("status_list");
+		this.myScroll = new iScroll("status_list", {
+			hScroll: false,
+			hScrollbar: false,
+			vScrollbar: false
+		});
 		//TODO: check if we have a network connection first
 		this.getData();
 	};
