@@ -77,8 +77,9 @@ function SubwayStatus() {
 	
 	function entryClick(event) {
 		debug.log('click event fired');
-		jQuery(".headline").slideUp();
-		jQuery(this).parent().find(".headline").slideDown();
+		currentHeadline = jQuery(this).parent().find(".headline");
+		jQuery(".headline").not(currentHeadline).slideUp();
+		currentHeadline.slideToggle();
 	}
 	
 	function decodeEntities(html) {
