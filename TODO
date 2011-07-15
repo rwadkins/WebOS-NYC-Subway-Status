@@ -1,11 +1,12 @@
 * Handle communication failure
-* Automated Refresh
 * Details data
 * store parsed results
-* User refresh.
 * Status popup/last updated
 * Fix Scrolling
 * Additional Styling
+* User refresh UI.
 
 Done
 * Unhide Headline div
+* Automated Refresh
+* User refresh.
