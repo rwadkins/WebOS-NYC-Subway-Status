@@ -17,6 +17,9 @@ function SubwayStatus() {
 	var that = this;
 	this.subways = [];
 	jQuery('.entry').live('click', entryClick);
+	jQuery('#header').click(function() {that.getData();});
+	this.refreshTimer = {};
+	this.refreshTimerDuration = 300000;
 	this.start = function () {
 		debug.log("app started, awesome 100");
 		this.myScroll = new iScroll("status_list", {
@@ -28,11 +31,13 @@ function SubwayStatus() {
 		this.getData();
 	};
 	this.getData = function () {
+		clearTimeout(that.refreshTimer);
 		var dataObject = new XMLGetAndParse;
 		dataObject.url = dataUrl;
-		dataObject.parser = this.Parser;
-		dataObject.ondata = this.dataChangeHandler;
+		dataObject.parser = that.Parser;
+		dataObject.ondata = that.dataChangeHandler;
 		dataObject.execute();
+		this.refreshTimer = setTimeout(that.getData, that.refreshTimerDuration); 
 	};
 	this.Parser = function(source, object) {
 		_get_timestamp();
@@ -65,6 +70,7 @@ function SubwayStatus() {
 		});
 		jQuery("#status_list ul").empty().append(entries);
 		that.myScroll.refresh();
+		jQuery("#lastUpdated").html("Last Updated: " + object.timestamp);
 	};
 
 	function statusListItem(entry) {
@@ -84,6 +90,7 @@ function SubwayStatus() {
 		currentHeadline = jQuery(this).parent().find(".headline");
 		jQuery(".headline").not(currentHeadline).slideUp();
 		currentHeadline.slideToggle();
+		that.myScroll.refresh();
 	}
 	
 	function decodeEntities(html) {
