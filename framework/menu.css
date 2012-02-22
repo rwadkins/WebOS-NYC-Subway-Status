@@ -75,6 +75,30 @@ h1 {
 	overflow: hidden;
 }
 
+#refresh {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.spinner {
+    -webkit-animation-name: spinnerRotate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spinnerRotate {
+    from {
+        -webkit-transform:rotate(360deg);
+    }
+    to {
+        -webkit-transform:rotate(0deg);
+    }
+}
+
 #header {
 	position: absolute;
 	top: 0;
@@ -92,9 +116,9 @@ h1 {
 
 #footer {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+    bottom: 0px;
+    left: 0;
+    right: 0;
 	height: 35px;
 	padding-top: 5px;
 	text-align: center;
@@ -103,8 +127,26 @@ h1 {
 	background-image: url("images/grey_i_bg.png");
 	border-top: 1px solid #999;
 	background-repeat: repeat-x;
+	
 }
 
+#toasterMessage {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;    
+    height: 35px;
+    padding-top: 5px;
+    text-align: center;
+    vertical-align: center;
+    background-color: #4cd5cd;
+    background-image: url("images/grey_i_bg.png");
+    border-top: 1px solid #999;
+    background-repeat: repeat-x;
+    z-index: 5;
+
+    -webkit-transition: bottom 500ms ease-in;
+}
 .entry {
 	background-image: url("images/grey_bg.png");
 	background-repeat: repeat-x;

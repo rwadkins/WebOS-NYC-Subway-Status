@@ -37,6 +37,9 @@ function SubwayStatus() {
 		dataObject.store = 'subwayStatus';
 		dataObject.parser = that.Parser;
 		dataObject.ondata = that.dataChangeHandler;
+		dataObject.onGetStart = this.getStartHandler;
+		dataObject.onGetEnd = this.getEndHandler;
+		dataObject.onGetError = this.getErrorHandler;
 		dataObject.execute();
 		this.refreshTimer = setTimeout(that.getData, that.refreshTimerDuration); 
 	};
@@ -74,6 +77,20 @@ function SubwayStatus() {
 		jQuery("#lastUpdated").html("Last Updated: " + object.timestamp);
 	};
 
+    this.getStartHandler = function() {
+        debug.log('StartHandler Called');
+        jQuery("#refresh img").addClass("spinner");
+    };
+    
+    this.getEndHandler = function() {
+        debug.log('endHandler Called');
+        jQuery("#refresh img").removeClass("spinner");
+    };
+    
+    this.getErrorHandler = function(jqXHR, textStatus, errorThrown) {
+        toasterPopup("An error has occurred\n" + errorThrown);
+    };
+    
 	function statusListItem(entry) {
 		var line_image = jQuery("<img />").attr("src","images/icons/" + entry.line + ".png");
 		var line = jQuery("<span />").addClass("line").append(line_image);
@@ -96,6 +113,22 @@ function SubwayStatus() {
 	
 	function decodeEntities(html) {
 		return jQuery("<div />").html(html).text();
+	}
+	
+	function toasterPopup(message) {
+	    var toaster = jQuery('#toasterMessage');
+	    
+	    toaster.html(message);
+	    toaster.removeClass("hidden");
+	    
+	    toaster.css("bottom", 0);
+	    
+	    var timer = setTimeout(toasterClose, 5000);
+	    
+	    function toasterClose() {
+	        toaster.innerHTML = "";
+	        toaster.css("bottom", "-40px");
+	    }
 	}
 }
 

@@ -6,6 +6,9 @@
     this.store = '';
     this.data = '';
     this.ondata = {};
+    this.onGetStart = {};
+    this.onGetEnd = {};
+    this.onGetError = {};
     this.execute = function() {
         if(this.store) {
             this._load_data();
@@ -13,7 +16,11 @@
         this._get_file();
     };
     this._get_file = function() {
-        jQuery.get(this.url, this._get_success);
+        if( typeof this.onGetStart == 'function') {
+            this.onGetStart();
+        }
+        jQuery.get(this.url, this._get_success)
+            .error(this._get_error);
     };
     this._get_success = function(data, textStatus, jqXHR) {
         if(jqXHR.status == "200") {
@@ -24,8 +31,17 @@
             }
             that._data_changed();
         }
+        if( typeof that.onGetEnd == 'function') {
+            that.onGetEnd();
+        }
     };
     this._get_error = function(jqXHR, textStatus, errorThrown) {
+        if( typeof that.onGetEnd == 'function') {
+            that.onGetEnd();
+        }
+        if( typeof that.onGetError == 'function') {
+            that.onGetError(jqXHR, textStatus, errorThrown);
+        }
     };
     this._process_data = function() {
         this.parser(this.data, this.object);
