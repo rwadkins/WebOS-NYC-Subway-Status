@@ -34,6 +34,7 @@ function SubwayStatus() {
 		clearTimeout(that.refreshTimer);
 		var dataObject = new XMLGetAndParse;
 		dataObject.url = dataUrl;
+		dataObject.store = 'subwayStatus';
 		dataObject.parser = that.Parser;
 		dataObject.ondata = that.dataChangeHandler;
 		dataObject.execute();
