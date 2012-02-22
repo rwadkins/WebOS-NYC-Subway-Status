@@ -1,8 +1,6 @@
 * Handle communication failure
 * Details data
-* Status popup/last updated
 * Additional Styling
-* User refresh UI.
 
 Done
 * Unhide Headline div
@@ -10,3 +8,5 @@ Done
 * User refresh.
 * Fix Scrolling
 * store parsed results
+* User refresh UI.
+* Status popup/last updated

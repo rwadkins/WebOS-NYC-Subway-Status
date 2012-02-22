@@ -1,6 +1,6 @@
 {
 	"id": "com.rwadkins.nycsubwaystatus",
-	"version": "0.6.0",
+	"version": "0.7.5",
 	"vendor": "rwadkins",
 	"type": "web",
 	"main": "index.html",
