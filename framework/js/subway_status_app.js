@@ -107,8 +107,8 @@ function SubwayStatus() {
 		debug.log('click event fired');
 		currentHeadline = jQuery(this).parent().find(".headline");
 		jQuery(".headline").not(currentHeadline).slideUp();
-		currentHeadline.slideToggle();
-		that.myScroll.refresh();
+  		currentHeadline.slideToggle( "fast", function() {that.myScroll.refresh();});
+		
 	}
 	
 	function decodeEntities(html) {
