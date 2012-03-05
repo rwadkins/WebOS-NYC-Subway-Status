@@ -25,7 +25,8 @@ function SubwayStatus() {
 		this.myScroll = new iScroll("status_list", {
 			hScroll: false,
 			hScrollbar: false,
-			vScrollbar: false
+			vScrollbar: false,
+			checkDOMChanges: false
 		});
 		//TODO: check if we have a network connection first
 		this.getData();
@@ -100,6 +101,7 @@ function SubwayStatus() {
 		var li = jQuery("<li />").append(entryDiv);
 		li.append(headline);
 		li.attr("id",entry.line);
+		li.data(entry);
 		return li[0];
 	};
 	
@@ -107,7 +109,7 @@ function SubwayStatus() {
 		debug.log('click event fired');
 		currentHeadline = jQuery(this).parent().find(".headline");
 		jQuery(".headline").not(currentHeadline).slideUp();
-  		currentHeadline.slideToggle( "fast", function() {that.myScroll.refresh();});
+  		currentHeadline.slideToggle( "fast", function() { setTimeout( function() {that.myScroll.refresh();}, 0 ) });
 		
 	}
 	
